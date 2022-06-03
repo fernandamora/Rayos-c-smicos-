@@ -1,2 +1,2 @@
-# Rayos-c-smicos-
+# Rayos cósmicos
 Un proyecto muy melo 
