@@ -1,1 +1,0 @@
-mongodb+srv://josuejaramillo:fernanda@rayoscosmicos.giewzds.mongodb.net/?retryWrites=true&w=majority
