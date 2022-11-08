@@ -2,6 +2,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
+import Table from 'react-bootstrap/Table';
+
 
 import {axiosInstance} from "../src/config/config"
 import { useState } from "react";
@@ -14,8 +16,27 @@ function App() {
   const [temperatura, setTemperatura] = useState("");
   const [saturacion, setSaturacion] = useState("");
   const [consulta, setConsulta] = useState("casa");
+  const [RayCosObj, setRayCosObj] = useState([
+    {
+      _id: 1,
+      lugar: "ninguno",
+      temperatura: 0,
+      saturacion: 0,
+      luz: 0,
+    }
+  ]);
+  //Solicitar todos los datos
 
-  //Solicitar datos de la base de datos
+  function cargarDatos() {
+    axiosInstance
+    .get(`/api/RayosCosmicos`)
+    .then((res) =>{
+      setRayCosObj(res.data)
+    })
+    .catch((err) => console.error(err));
+  }
+
+  //Solicitar ultimo dato de la base de datos
   function lastData()  {
     axiosInstance
     .get(`/api/RayosCosmicos/ultimo/lugar/${consulta}`)
@@ -27,10 +48,30 @@ function App() {
     }).catch((err) => console.error(err))
   };
 
+  function cargarDatosLugar() {
+    axiosInstance
+    .get(`/api/RayosCosmicos/lugar/${consulta}`)
+    .then((res) =>{
+      setRayCosObj(res.data)
+    })
+    .catch((err) => console.error(err));
+  }
+
+  function clickTodasCasa() {
+    setConsulta("casa");
+    cargarDatosLugar();
+  }
+
+  function clickTodasUni() {
+    setConsulta("universidad");
+    cargarDatosLugar();
+  }
+
   function clickBotonCasa() {
     setConsulta("casa");
     lastData();
   }
+
   function clickBotonUniversidad() {
     setConsulta("universidad");
     lastData();
@@ -49,8 +90,11 @@ function App() {
     <h4>temperatura: {temperatura}</h4>
     <h4>saturacion: {saturacion}</h4>
   </div>
-    <Button variant="outline-primary" onClick={clickBotonCasa}>Consultar último dato casa</Button>{' '}
-    <Button variant="outline-primary" onClick={clickBotonUniversidad}>Consultar último dato universidad</Button>{' '}
+    <Button variant="outline-info" onClick={clickBotonCasa}>Consultar último dato casa</Button>{' '}
+    <Button variant="outline-info" onClick={clickBotonUniversidad}>Consultar último dato universidad</Button>{' '}
+    <Button variant="outline-success" onClick={cargarDatos}>Consultar datos</Button>{' '}
+    <Button variant="outline-dark" onClick={clickTodasCasa}>Consultar casa</Button>{' '}
+    <Button variant="outline-dark" onClick={clickTodasUni}>Consultar universidad</Button>{' '}
     <div>
       <Accordion>
         <Accordion.Item eventKey='0'>
@@ -88,8 +132,40 @@ function App() {
         </Accordion.Item>
 
         <Accordion.Item eventKey='1'>
+            <Accordion.Header style={{ backgroundColor: 'pink' }}>Tabla</Accordion.Header>
+            <Accordion.Body>
+            <Table striped bordered hover>
+              <thead>
+                <tr style={{ backgroundColor: 'pink' }}>
+                  <th>Lugar</th>
+                  <th>Temperatura</th>
+                  <th>Saturación</th>
+                  <th>Luz</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  RayCosObj.map((Ray) => {
+                    return(
+                      <tr key={Ray._id}  style={{ backgroundColor: 'cyan' }}>
+                        <td>{Ray.lugar}</td>
+                        <td>{Ray.temperatura}</td>
+                        <td>{Ray.saturacion}</td>
+                        <td>{Ray.luz}</td>
+                      </tr>
+
+                    );
+                  })
+                }
+              </tbody>
+            </Table>
+
+            </Accordion.Body>
+        </Accordion.Item>
+
+        <Accordion.Item eventKey='2'>
             <Accordion.Header>Acordion 2</Accordion.Header>
-            <Accordion.Body>Esto esta dentro del acordion 2</Accordion.Body>
+            <Accordion.Body style={{ backgroundColor: 'lightblue' }}>Esto esta dentro del acordion 2</Accordion.Body>
         </Accordion.Item>
       </Accordion>
 
