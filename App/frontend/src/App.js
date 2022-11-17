@@ -138,9 +138,9 @@ function App() {
               <thead>
                 <tr style={{ backgroundColor: 'pink' }}>
                   <th>Lugar</th>
-                  <th>Temperatura</th>
-                  <th>Saturación</th>
-                  <th>Luz</th>
+                  <th>Temperatura (°C)</th>
+                  <th>Concentración de Alcohol (mg/L)</th>
+                  <th>Luz (Lux)</th>
                 </tr>
               </thead>
               <tbody>

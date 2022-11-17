@@ -13,13 +13,13 @@ def main():
         dev.flushInput()
         dev.flushOutput()
         while(1):
-            time.sleep(10)
+            time.sleep(5)
             dev.write(str.encode('s'))
             dev.flushInput()
             data = dev.readline()
             data = data.decode().split(',')
             print(data)
-            resp = requests.post("http://localhost:5000/api/RayosCosmicos", json={"lugar": "universidad", "temperatura": 20*np.random.rand(), "saturacion":  int(data[0]), "luz":  int(data[1])})
+            resp = requests.post("http://localhost:5000/api/RayosCosmicos", json={"lugar": "universidad - DS2", "temperatura": float(data[2]), "saturacion":  float(data[0]), "luz":  float(data[1])})
             print(resp.text)
             
     except Exception as error:

@@ -1,0 +1,11 @@
+Parámetros que funcionan de manera decente:
+
+Imagen:
+-Brillo = 0.34
+-Contraste = 4
+-Nitidez = 4
+
+Fondo:
+-Brillo = 0.34
+-Contraste = 5
+-Nitidez = 2

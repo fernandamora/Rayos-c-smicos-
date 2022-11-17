@@ -1,5 +1,3 @@
-
-
 #define LED 13
 
 int cont = 0;
@@ -13,8 +11,9 @@ int temperatura = 0;
 int bandMuestreo = 0;
 
 // variables para le muestreo
-int mqVal = 0;
-int fotoVal = 0;
+double mqVal = 0;
+double fotoVal = 0;
+double tempVal = 0;
 
 void setup()
 {
@@ -28,17 +27,24 @@ void setup()
 // Funcion que muestrea los datos de los sensores
 void muestreo()
 {
-  // temperatura = analogRead(A0);
-  mqVal = analogRead(A0);
-  fotoVal = analogRead(A1);
+  mqVal = analogRead(A6);
+  fotoVal = analogRead(A3);
+  tempVal = analogRead(A2);
 
-  mqVal = 2 * mqVal + 20;
+  mqVal = mqVal * 5 / 1024;                   // Convierte a voltaje
+  mqVal = 1000 * ((5 - mqVal) / mqVal);       // Convierte a rs
+  mqVal = 0.4091 * pow(mqVal / 5463, -1.497); // Convierte a concentracion de alcohol mg/L
+
+  tempVal = (tempVal / 1024) * 5000; // Convierte a milivoltios
+  tempVal = tempVal / 10;            // Convierte a celcius
+
+  fotoVal = (fotoVal * 3000 * 10) / (10 * 10 * (1024 - fotoVal)); // Convierte a Lux
 }
 
 void imprimirMuestra()
 {
 
-  String datosPython = String(mqVal) + "," + String(fotoVal);
+  String datosPython = String(mqVal) + "," + String(fotoVal) + "," + String(tempVal);
 
   Serial.print(datosPython);
   // Serial.println(temperatura);
