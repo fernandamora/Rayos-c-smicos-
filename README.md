@@ -39,11 +39,16 @@ Examinando los resultados obtenidos podemos notar que las condiciones para reali
 
 ### Referencias
 
-[1]Las radiaciones. (2015). Consejo de Seguridad Nuclear. https://www.csn.es/las-radiaciones#:~:text=La%20radiación%20es%20la%20emisión,las%20radiaciones%20desde%20sus%20orígenes.
+[1]Las radiaciones. (2015). Consejo de Seguridad Nuclear. https://www.csn.es/las-çradiaciones#:~:text=La%20radiación%20es%20la%20emisión,las%20radiaciones%20desde%20sus%20orígenes.
+
 [2] nudelo. (2022).  Acerca de la cámara de niebla. nudelo. https://www.nuledo.com/es/
+
 [3]Cámara de niebla. (2020). Wikipedia. https://es.wikipedia.org/wiki/Cámara_de_niebla
+
 [4] Moliner. (2011). La cámara de niebla de difusión (Diffusion cloud chamber). http://ific.uv.es/~martinee/LabFNyP-UV/CamaraNieblaDifusion-2011-20-11.pdf
+
 [5] Outreach, N. P. (2022). The Nobel Prize in Physics 1936. The Nobel Prize in Physics 1936. https://www.nobelprize.org/prizes/physics/1936/summary/
+
 [6] Alejandro Manzeda O., Carla A. Calle García, Manuel Monasterios M. (2018). Construcción de una cámara de niebla de difusión para la identificación de diferentes partículas cósmicas. Revista boliviana de física, 32, 25–28.
 
 
