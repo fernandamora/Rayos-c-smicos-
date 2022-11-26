@@ -41,11 +41,9 @@ class detection:
         frame = cv2.hconcat([orImageText, contours])
 
         cv2.imshow("img", cv2.resize(frame, (620, 680)))
-        
-        
+        cv2.imwrite("img.png", frame)
     
     def imageDetection(self, bkg, img, cut, enh_bkg, enh_img, thresh):
-
         img, bkg = cv2.imread(img)[int(cut[0]):int(cut[1])], cv2.imread(bkg)[int(cut[0]):int(cut[1])]
 
         orImage = img.copy()
@@ -87,9 +85,8 @@ class detection:
                 self.drawContours(orImage, CNTS)
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
-
-                    
-                
         video.release()
         cv2.destroyAllWindows()
 
+    def realTimeDetection(self, ):
+        pass

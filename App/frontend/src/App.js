@@ -3,15 +3,15 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
-
+import Modal from 'react-bootstrap/Modal';
 
 import {axiosInstance} from "../src/config/config"
 import { useState } from "react";
 
-
 function App() {
-
-  const title = "Modificacion de menu";
+  const [facc, setfacc] = useState("0");
+  const [sacc, setsacc] = useState("1");
+  const [tacc, settacc] = useState("1");
   const [lugar, setLugar] = useState("");
   const [temperatura, setTemperatura] = useState("");
   const [saturacion, setSaturacion] = useState("");
@@ -25,6 +25,24 @@ function App() {
       luz: 0,
     }
   ]);
+
+  function Facc() {
+    setfacc("0");
+    setsacc("1");
+    settacc("1");
+  }
+
+  function Sacc() {
+    setfacc("1");
+    setsacc("0");
+    settacc("1");
+  }
+
+  function Tacc() {
+    setfacc("1");
+    setsacc("1");
+    settacc("0");
+  }
   //Solicitar todos los datos
 
   function cargarDatos() {
@@ -34,6 +52,7 @@ function App() {
       setRayCosObj(res.data)
     })
     .catch((err) => console.error(err));
+    
   }
 
   //Solicitar ultimo dato de la base de datos
@@ -79,99 +98,137 @@ function App() {
 
   return (
 
-  <div>
+  <body style={{
+    height: '750vh',
+    width: '201.5vh',
+    backgroundImage: `url(${require("../src/imagenes/bkg.png")})`,
+  }}>
 
-    <h1>Prueba</h1>
-    <h4>Prueba 2</h4>
+<div className="text-center" >
 
-  <div>
-    <h2>Datos:</h2>
-    <h4>lugar: {lugar}</h4>
-    <h4>temperatura: {temperatura}</h4>
-    <h4>saturacion: {saturacion}</h4>
-  </div>
-    <Button variant="outline-info" onClick={clickBotonCasa}>Consultar último dato casa</Button>{' '}
-    <Button variant="outline-info" onClick={clickBotonUniversidad}>Consultar último dato universidad</Button>{' '}
-    <Button variant="outline-success" onClick={cargarDatos}>Consultar datos</Button>{' '}
-    <Button variant="outline-dark" onClick={clickTodasCasa}>Consultar casa</Button>{' '}
-    <Button variant="outline-dark" onClick={clickTodasUni}>Consultar universidad</Button>{' '}
-    <div>
-      <Accordion>
-        <Accordion.Item eventKey='0'>
-            <Accordion.Header>{title}</Accordion.Header>
-            <Accordion.Body>
-              <Carousel>
+    <h1 style={{color: 'white', textShadow: '#d989b0 2px 2px 4px ', fontFamily: 'Garamond', fontSize: 60, fontWeight: 'bold'}}>Detección computacional de partículas por medio de una cámara de niebla de difusión continua</h1>
+  
+    <div style={{display: 'flex',
+        justifyContent: 'center',
+        fontFamily: 'Garamond', fontSize: 20
+        }}>
+      <Accordion defaultActiveKey="0" >
+        <Accordion.Item onClick = {() => {
+          Facc();
+        }} eventKey={facc} style={{fontFamily: 'Garamond'}}>
+            <Accordion.Header style={{fontFamily: 'Garamond'}}>Sobre el proyecto</Accordion.Header>
+            <Accordion.Body >
+            <h3 align="left">Resumen</h3>
+            <p align="left">
+            Partiendo de la construcción de una cámara de niebla de difusión continua y una muestra radiactiva de un electrodo de aleación tungsteno-torio al 2%, se computarizaron las condiciones ambientales mediante la construcción de un circuito utilizando un sensor de gases MQ-135, una fotoresistencia y un sensor de temperatura LM35, para determinar la concentración de alcohol, temperatura y nivel de iluminación. La detección de partículas se llevó a cabo usando Python 3.10.6 y Arduino IDE. Además, se implementó un código en Python para realizar el rastreo y conteo de las trazas de las partículas. Finalmente, se obtuvieron resultados exitosos logrando monitorizar las condiciones ambientales y la detección de partículas.
+            </p>
+
+            <img
+                      className="d-block w-100"
+                      src={require("../src/imagenes/poster.png")}
+                    /> 
+            
+            </Accordion.Body>
+        </Accordion.Item>
+      </Accordion>
+
+      <Accordion defaultActiveKey="2">
+        <Accordion.Item  onClick= {() => {
+          cargarDatos();
+          Sacc();
+        }} eventKey={sacc} style={{fontFamily: 'Garamond'}}>
+              <Accordion.Header style={{fontFamily: 'Garamond'}}>Datos</Accordion.Header>
+              <Accordion.Body>
+              <Table striped bordered hover>
+                <thead>
+                  <tr style={{ backgroundColor: '#c7cad1' }}>
+                    <th>Lugar</th>
+                    <th>Temperatura (°C)</th>
+                    <th>Concentración de Alcohol (mg/L)</th>
+                    <th>Luz (Lux)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    RayCosObj.map((Ray) => {
+                      return(
+                        <tr key={Ray._id}  style={{ backgroundColor: 'white' }}>
+                          <td>{Ray.lugar}</td>
+                          <td>{Ray.temperatura}</td>
+                          <td>{Ray.saturacion}</td>
+                          <td>{Ray.luz}</td>
+                        </tr>
+
+                      );
+                    })
+                  }
+                </tbody>
+              </Table>
+
+              </Accordion.Body>
+          </Accordion.Item>
+      </Accordion>
+
+      <Accordion defaultActiveKey="2">
+      <Accordion.Item onClick= {() => {
+          Tacc();
+        }} eventKey = {tacc}>
+            <Accordion.Header style={{fontFamily: 'Garamond'}}>Galeria</Accordion.Header>
+            <Accordion.Body > 
+            <Carousel>
         
               <Carousel.Item>
                 <img
                       className="d-block w-100"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/1200px-Cat_November_2010-1a.jpg"
-                      alt="First slide"
-                    />
-                  <Carousel.Caption>
-                    <h3>Gato</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                  </Carousel.Caption>  
+                      src={require("../src/imagenes/img1.png")}
+                    /> 
                 </Carousel.Item>
-          
+
                 <Carousel.Item>
                 <img
                       className="d-block w-100"
-                      src="https://estaticos.muyinteresante.es/uploads/images/gallery/59bbb29c5bafe878503c9872/husky-siberiano-redes.jpg"
-                      alt="Second slide"
-                    />
-                <Carousel.Caption>
-                    <h3>Perro</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                  </Carousel.Caption>   
-              </Carousel.Item>
+                      src={require("../src/imagenes/img2.png")}
+                    /> 
+                </Carousel.Item>
+
+                <Carousel.Item>
+                <img
+                      className="d-block w-100"
+                      src={require("../src/imagenes/img3.png")}
+                    /> 
+                </Carousel.Item>
+
+                <Carousel.Item>
+                <img
+                      className="d-block w-100"
+                      src={require("../src/imagenes/img4.png")}
+                    /> 
+                </Carousel.Item>
+
+                <Carousel.Item>
+                <img
+                      className="d-block w-100"
+                      src={require("../src/imagenes/img5.png")}
+                    /> 
+                </Carousel.Item>
+
+                <Carousel.Item>
+                <img
+                      className="d-block w-100"
+                      src={require("../src/imagenes/img6.png")}
+                    /> 
+                </Carousel.Item>
+          
+
           
               </Carousel>
-
             </Accordion.Body>
-        </Accordion.Item>
-
-        <Accordion.Item eventKey='1'>
-            <Accordion.Header style={{ backgroundColor: 'pink' }}>Tabla</Accordion.Header>
-            <Accordion.Body>
-            <Table striped bordered hover>
-              <thead>
-                <tr style={{ backgroundColor: 'pink' }}>
-                  <th>Lugar</th>
-                  <th>Temperatura (°C)</th>
-                  <th>Concentración de Alcohol (mg/L)</th>
-                  <th>Luz (Lux)</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  RayCosObj.map((Ray) => {
-                    return(
-                      <tr key={Ray._id}  style={{ backgroundColor: 'cyan' }}>
-                        <td>{Ray.lugar}</td>
-                        <td>{Ray.temperatura}</td>
-                        <td>{Ray.saturacion}</td>
-                        <td>{Ray.luz}</td>
-                      </tr>
-
-                    );
-                  })
-                }
-              </tbody>
-            </Table>
-
-            </Accordion.Body>
-        </Accordion.Item>
-
-        <Accordion.Item eventKey='2'>
-            <Accordion.Header>Acordion 2</Accordion.Header>
-            <Accordion.Body style={{ backgroundColor: 'lightblue' }}>Esto esta dentro del acordion 2</Accordion.Body>
         </Accordion.Item>
       </Accordion>
-
-
     </div>
   </div>
+
+  </body>
   );
 }
 
