@@ -14,9 +14,13 @@ En este trabajo presentamos la construcción de una cámara de niebla de difusi�
 
 ***Objetivos***
 ***General***: Realizar conteo automático de partículas en una cámara de niebla.
+
 ***Específicos***:
+
 Construir una cámara de niebla de difusión continua.
+
 Desarrollar un código que detecte automáticamente la presencia de partículas en la cámara de niebla.
+
 Monitorizar las condiciones (concentración de alcohol, temperatura y nivel de iluminación) presentes en la detección de partículas.
 
 ### Materiales y métodos 
